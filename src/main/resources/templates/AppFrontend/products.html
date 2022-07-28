@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+
+<title>Product Table</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width = device-width initial-scale = 1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<a th:href="@{/App/showFormForAdd}" class ="btn btn-secondary btn-sm mb-3" style="margin-top: 50px; margin-left:35px"> New
+Product</a>
+
+<form   th:action="@{/App/bycategory}"style="  margin-left:850px; " >
+<div class="row">
+<div class="col">
+<select class="form-select  mb-3" style="width: 200px;" aria-label="Default select example" th:name="catid" >
+  <option selected value="0">Search by Category</option>
+  <option value="101">Toy</option>
+  <option value="102">Electronics</option>
+  <option value="103">Fashion</option>
+</select>
+</div>
+<div class="col">
+<button type="submit" class="btn btn-info ">Search</button>
+</div>
+</div>
+</form>
+
+<!-- Search by product -->
+
+
+<form   th:action="@{/App/byname}"style=" margin-left:850px" >
+<div class="row">
+<div class="col">
+<input type="text" 
+class="form-control mb-4 col-4"
+placeholder="Name" th:name="name">
+</div>
+<div class="col">
+<button type="submit" class="btn btn-info ">Search</button>
+</div>
+</div>
+</form>
+
+
+
+
+
+<table class="table table-striped table-hover table-bordered" style="width:1000px;  margin-left:30px; margin-top:1px;">
+
+
+
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Product ID</th>
+      <th scope="col">sku</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Image Url</th>
+      <th scope="col">Active</th>
+      <th scope="col">Unit Stock</th>
+      <th scope="col">Created Date</th>
+      <th scope="col">Last Updated</th>
+      <th scope="col">Category ID</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<tr th:each = "prod: ${PRODUCT}">
+  <td th:text = "${prod.id}"></td>
+  <td th:text = "${prod.sku}"></td>
+  <td th:text = "${prod.name}"></td>
+  <td th:text = "${prod.description}"></td>
+  <td th:text = "${prod.unitprice}"></td>
+  <td th:text = "${prod.imageurl}"></td>
+  <td th:text = "${prod.active}"></td>
+  <td th:text = "${prod.unitsinstock}"></td>
+   <td th:text = "${prod.datecreated}"></td>
+    <td th:text = "${prod.lastupdated}"></td>
+     <td th:text = "${prod.categoryid}"></td>
+  
+<td>
+  
+  
+<a th:href="@{/App/showFormForUpdate(prodid=${prod.id})}" class="btn btn-info btn-sm"> Update </a>
+
+<a th:href="@{/App/delete(prodid=${prod.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+Delete
+</a>
+  
+  </td> 
+  
+</tr>
+
+</tbody>
+
+
+</table>
+
+</body>
+</html>
